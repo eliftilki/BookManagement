@@ -1,0 +1,175 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Stok API - OpenAPI 3.0",
+    "description": "Bu, OpenAPI 3.0 belirtmesine dayalı bir örnek Stok API'sidir. Bu API, stokları yönetmek için uç noktalar sağlar. Bu API'yi kullanarak stok ekleyebilir, güncelleyebilir, silebilir ve alabilirsiniz.",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "externalDocs": {
+    "description": "Swagger hakkında daha fazla bilgi edinin",
+    "url": "http://swagger.io"
+  },
+  "servers": [
+    {
+      "url": "https://stock-api.example.com/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "stock",
+      "description": "Stoklar hakkındaki işlemler",
+      "externalDocs": {
+        "description": "Daha fazlasını öğrenin",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "paths": {
+    "/stock": {
+      "get": {
+        "tags": [
+          "stock"
+        ],
+        "summary": "Tüm stokları al",
+        "description": "Tüm stokların listesini döndürür",
+        "operationId": "getStock",
+        "responses": {
+          "200": {
+            "description": "başarılı işlem",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/StockItem"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Stok bulunamadı"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "stock"
+        ],
+        "summary": "Yeni bir stok ekleyin",
+        "description": "Depoya yeni bir stok ekler",
+        "operationId": "addStock",
+        "requestBody": {
+          "description": "Eklenmesi gereken Stok nesnesi",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StockItem"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "başarılı işlem",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StockItem"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "stock"
+        ],
+        "summary": "Tüm stokları sil",
+        "description": "Depodaki tüm stokları siler",
+        "operationId": "deleteAllStock",
+        "responses": {
+          "204": {
+            "description": "başarılı işlem"
+          },
+          "404": {
+            "description": "Stok bulunamadı"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "stock"
+        ],
+        "summary": "Tüm stokları güncelle",
+        "description": "Depodaki tüm stokları günceller",
+        "operationId": "updateAllStock",
+        "requestBody": {
+          "description": "Güncellenmiş Stok nesnesi",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StockItem"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "başarılı işlem",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StockItem"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "StockItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Ürün A"
+          },
+          "quantity": {
+            "type": "integer",
+            "example": 100
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "StockItem": {
+        "description": "Depoya eklenmesi gereken stok nesnesi",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/StockItem"
+            }
+          }
+        }
+      }
+    }
+  }
+}
